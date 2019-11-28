@@ -1,0 +1,351 @@
+<?php
+header("Content-Type: text/html");
+header("Expires: 0");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+?>
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta name="theme-color" content="#8403b4">
+    <meta name="msapplication-navbutton-color" content="#8403b4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#8403b4">
+    <title> Steffy </title>
+    <link rel="stylesheet" href="style/style.min.css" type="text/css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style/font.css" type="text/css">
+    <link rel="stylesheet" href="style/plr.min.css" type="text/css">
+    <link rel="stylesheet" href="style/res.min.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="header" id="header">
+        <div class="lpr" id="lpr">
+            <span class="lpr-bar" id="lpr-bar"></span>
+            <span class="lpr-bar" id="lpr-bar"></span>
+            <span class="lpr-bar" id="lpr-bar"></span>
+        </div>
+        <div class="currentList" id="currentList"></div>
+        <div class="logoH" id="logoH">
+            <img src="img/favicon.svg" alt="mr-r music" id="logo" class="logo" />
+        </div>
+    </div>
+    <div class="min-player" id="min-player">
+        <div class="online-status" id="online-status">
+            <br />
+            <span id="on_st_txt"></span>
+        </div>
+        <div class="mini-py" id="mini-py">
+            <div class="s-m-img" id="s-m-img">
+                <a>
+                    <span id="pl_o_aero">
+                        <svg x="0px" y="0px" viewBox="-9 -16 82.888 82.888" xml:space="preserve" width="55px"
+                            height="55px">
+                            <g transform="matrix(1 0 0 1 0 0)">
+                                <path
+                                    d="M52.104,0.249c-0.216-0.189-0.501-0.275-0.789-0.241l-31,4.011c-0.499,0.065-0.872,0.489-0.872,0.992  v6.017v4.212v26.035C17.706,39.285,14.997,38,11.944,38c-5.247,0-9.5,3.781-9.5,8.444s4.253,8.444,9.5,8.444s9.5-3.781,9.5-8.444  c0-0.332-0.027-0.658-0.069-0.981c0.04-0.108,0.069-0.221,0.069-0.343V16.118l29-3.753v18.909C48.706,29.285,45.997,28,42.944,28  c-5.247,0-9.5,3.781-9.5,8.444s4.253,8.444,9.5,8.444s9.5-3.781,9.5-8.444c0-0.092-0.012-0.181-0.015-0.272  c0.002-0.027,0.015-0.05,0.015-0.077V11.227V7.016V1C52.444,0.712,52.32,0.438,52.104,0.249z"
+                                    data-original="#EA6248" class="active-path" data-old_color="#E12D04" fill="#E12C03">
+                                </path>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+            <div class="s-det" id="s-det">
+                <div class="info" id="info">
+                    <span class="s-nm" id="s-nm">Tap on play to listen music</span>
+                    <span class="ar-nm" id="ar-nm"></span>
+                </div>
+                <a class="pl-state" id="pl-state">
+                    <svg width="26" height="20" viewBox="-6 0 24 24">
+                        <path class="fill_path" fill="#d2039e" fill-rule="evenodd" d="M0 0v24l20-12z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main-player" id="main-player">
+        <div class="close-main-player">
+            <a href="javascript:void(0);" class="cl-mn-pl" id="clMnPl">
+                <span class="cl-mn-icon">
+                    <svg width="55" height="55" fill="#FFFFFF" viewBox="-18 -18 55 55">
+                        <path class="fill_path"
+                            d="M16.293 1.592l-1.3-1.3-6.7 6.701-6.7-6.7-1.3 1.299 6.7 6.7-6.7 6.701 1.3 1.3 6.7-6.7 6.7 6.7 1.3-1.3-6.7-6.7z"
+                            fill-rule="evenodd"></path>
+                    </svg>
+                </span>
+            </a>
+        </div>
+
+
+        <div class="song-loc" id="song-loc">
+            <div class="current-track" id="current-track">00:00</div>
+            <div class="defaultBar" id="defaultBar">
+                <div class="progressBar" id="progressBar"></div>
+                <div class="seek-dot" id="seek-dot"></div>
+                <div class="buffer-bar" id="buffer-bar">
+                    <span class="buffer-amt" id="buffer-amt"></span>
+                </div>
+            </div>
+            <div class="track-time" id="track-time">00:00</div>
+            <div class="song-detail" id="song-detail">
+                <div class="song-nm-detail" id="song-nm-detail">
+                    <span class="s-nm-main" id="s-nm-main"></span>
+                    <span class="ar-nm-main" id="ar-nm-main"></span>
+                </div>
+            </div>
+            <div class="player-controls" id="player-controls">
+                <a class="sufSong" id="sufSong">
+                    <span class="suffle-song" id="suffle-song" title="">
+                        <svg width="24px" height="24px" viewBox="-3 -3 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-25.000000, -538.000000)">
+                                    <g transform="translate(0.000000, 447.000000)">
+                                        <g transform="translate(14.000000, 64.000000)">
+                                            <g transform="translate(11.000000, 27.000000)">
+                                                <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                <path class="fill_path"
+                                                    d="M10.6,9.2 L5.4,4 L4,5.4 L9.2,10.6 L10.6,9.2 Z M14.5,4 L16.5,6 L4,18.6 L5.4,20 L18,7.5 L20,9.5 L20,4 L14.5,4 Z M14.8,13.4 L13.4,14.8 L16.5,17.9 L14.5,19.9 L20,19.9 L20,14.4 L18,16.4 L14.8,13.4 Z"
+                                                    fill="#000000" id="sufSongColor" fill-rule="nonzero">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+                <a class="preSong" id="preSong">
+                    <span class="pre-song" id="pre-song" title="previous(j)">
+                        <svg width="24px" height="24px" viewBox="-3 -3 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-105.000000, -540.000000)" id="preCheckColor" fill="#000000">
+                                    <g transform="translate(0.000000, 447.000000)">
+                                        <g transform="translate(14.000000, 64.000000)">
+                                            <g transform="translate(66.000000, 0.000000)">
+                                                <g transform="translate(16.000000, 20.000000)">
+                                                    <path class="fill_path"
+                                                        d="M9,9 L12,9 L12,27 L9,27 L9,9 Z M14.25,18 L27,9 L27,27 L14.25,18 Z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+                <a class="plSong" id="plSong">
+                    <span class="play-song" id="play-song" title="play(k)">
+                        <svg width="24px" height="24px" id="main_pl_svg" viewBox="-3 -3 24 24" version="1.1">
+                            <defs></defs>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-280.000000, -239.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                    <g transform="translate(20.000000, 213.000000)">
+                                        <g transform="translate(260.000000, 26.000000)">
+                                            <path class="fill_path"
+                                                d="M14,19 L18,19 L18,5 L14,5 L14,19 Z M6,19 L10,19 L10,5 L6,5 L6,19 Z">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+                <a class="nxtSong" id="nxtSong">
+                    <span class="next-song" id="next-song" title="next(l)">
+                        <svg width="24px" height="24px" viewBox="-3 -3 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-237.000000, -540.000000)" fill="#000000">
+                                    <g transform="translate(0.000000, 447.000000)">
+                                        <g transform="translate(14.000000, 64.000000)">
+                                            <g transform="translate(66.000000, 0.000000)">
+                                                <g transform="translate(148.000000, 20.000000)">
+                                                    <path class="fill_path"
+                                                        d="M9,27 L21.75,18 L9,9 L9,27 L9,27 Z M24,9 L24,27 L27,27 L27,9 L24,9 L24,9 Z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+                <a class="repeatBtn" id="rptBtn">
+                    <span class="rpt-song" id="rpt-song" title="">
+                        <svg width="24px" height="24px" viewBox="-3 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-311.000000, -538.000000)">
+                                    <g transform="translate(0.000000, 447.000000)">
+                                        <g transform="translate(14.000000, 64.000000)">
+                                            <g transform="translate(297.000000, 27.000000)">
+                                                <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                <path class="fill_path" id="rptChangeOnClick"
+                                                    d="M17,17 L7,17 L7,14 L3,18 L7,22 L7,19 L19,19 L19,13 L17,13 L17,17 Z M7,7 L17,7 L17,10 L21,6 L17,2 L17,5 L5,5 L5,11 L7,11 L7,7 Z"
+                                                    fill="#000000" fill-rule="nonzero"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="song-img" id="song-img">
+            <div class="song-cover" id="song-cover">
+                <img src="" id="song-cover-img" alt="" width="100%" height="100%" />
+            </div>
+        </div>
+        <div class="playList">
+            <div class="cr_li_opn" id="cr_li_opn">
+                <span class="opntext" id="opntext">Swipe up to open playlist</span>
+            </div>
+            <div class="song-list-tab" id="song-list-tab">
+              <div class="user-playlist">
+                <span class="upText">Playlist</span>
+              </div>
+                <div class="cr_li_close" id="cr_li_close">
+                    <span class="closetext" id="closetext">Swipe down to close playlist</span>
+                </div>
+                <div class="crtTrk" id="crtTrk">
+                    <span class="crtTrkHeader" id="crtTrkHeader">CURRENT SONG</span>
+                    <span class="crtTrkValue" id="crtTrkValue">
+                        <div>
+                            <ul id="crtTrkUl">
+                                <li id="csli-src" class="csli-src" url="" name="" image="" artist="">
+                                    <div id="crtProgress"></div>
+                                  <div class="cr_hold">
+                                    <span id="cs_li_img" class="cs_li_img">
+                                        <img id="cs_li_image" class="cs_li_image" src="" alt="">
+                                    </span>
+                                    <span id="cs_li_n" class="cs_li_n"></span>
+                                    <span id="cs_li_ar" class="cs_li_ar"></span>
+                                  </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </span>
+                </div>
+                <div class="upcomTrks" id="upcomTrks">
+                    <span class="upcomTrksHeader" id="upcomTrksHeader">CURRENT PLAYLIST</span>
+                </div>
+                <ul id="song-items"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="pageBody">
+      <div class="li_by_ar">
+        <div class="arlist">
+        <div class="pjbar" id="pjbar">
+          <img src="https://raag.fm/image/250/15030/Tibbeyan_Ala_Jatt_Harf_Cheema,Karan_Aujla.jpg" alt="" class="arimg">
+          <span class="ar_li_t">Punjabi <br/> singers</span>
+        </div>
+          <div class="exPjbar e_ar_li" id="exPjbar">
+          <div class="harfCheema">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="ammyWirk">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="singga">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="diljeetDosanj">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="dilpreetDillon">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="jassManak">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="Amie">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="gurnaamBuller">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="amritmaan">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="karanSehmbi">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="akhil">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="guruRandawa">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="nehaKakkar">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="garrySandu">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="jassiGill">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="mankirtAulakh">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="sidduMosseWala">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+        </div>
+      </div>
+      <div class="arlist">
+        <div class="hiar" id="hiar">
+            <img src="https://a10.gaanacdn.com/gn_pl_img/playlists/P7m3GNKqxo/7m3GQwOybq/size_m_1557389995.jpg" alt="" class="arimg">
+          <span class="ar_li_t">Hindi <br> Singers</span>
+        </div>
+          <div class="exHiar e_ar_li" id="exHiar">
+          <div class="">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+          <div class="">
+            <img src="img/defaultartwork.svg" alt="" class="arimg">
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <script>
+        window.addEventListener('beforeunload', function (ev) {
+            ev.returnValue = "Sure Leave This Site?";
+        });
+        document.getElementById('song-list-tab').style.height = window.innerHeight + 'px';
+    </script>
+    <script src="js/connect.min.js" charset="utf-8"></script>
+</body>
+
+</html>

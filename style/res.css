@@ -1,0 +1,12 @@
+@media only screen and (width: 360px){
+    div.player-controls a {
+        margin-left: 8%;
+    }
+    div.song-nm-detail{
+        margin-left: 23%;
+    }
+    div.song-img{
+        width: 198px;
+        height: 207px;
+    }
+}
